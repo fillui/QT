@@ -1,0 +1,50 @@
+# Qt / CMake build outputs
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake.user
+*.user
+*.user.*
+.qtcreator/
+
+# Compiled binaries and object files
+*.exe
+*.dll
+*.so
+*.dylib
+*.obj
+*.o
+*.a
+*.bak
+
+# Python environments and caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Local runtime data
+*.db
+*.sqlite
+*.sqlite3
+*.cache
+dataset.cache
+**/infer_results/
+
+# Training outputs
+runs/
+**/runs/
+
+# Large model binaries.
+# Publish these with Git LFS or GitHub Releases if needed.
+*.pt
+*.onnx
+
+# Local duplicate/scratch folders
+dataset - 副本/
+dd/
+python/新建文本文档.txt

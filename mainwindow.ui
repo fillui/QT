@@ -1,0 +1,1807 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>860</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1180</width>
+    <height>720</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>902</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>模型训练、量化与推理平台</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow {
+    background: #eef2f7;
+}
+QWidget {
+    font-family: &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Segoe UI&quot;;
+    font-size: 13px;
+    color: #1f2937;
+}
+QFrame#headerFrame {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0f172a, stop:1 #1e40af);
+    border-radius: 18px;
+}
+QLabel#labelTitle {
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+}
+QLabel#labelSubTitle {
+    color: #dbeafe;
+    font-size: 12px;
+}
+QLabel#labelStatusChip {
+    background: rgba(255,255,255,0.16);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 14px;
+    padding: 6px 14px;
+}
+QTabWidget::pane {
+    border: none;
+    background: transparent;
+    top: -1px;
+}
+QTabBar::tab {
+    background: #dbe4f0;
+    color: #475569;
+    padding: 10px 22px;
+    margin-right: 8px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    min-width: 110px;
+}
+QTabBar::tab:selected {
+    background: white;
+    color: #1d4ed8;
+    font-weight: 700;
+}
+QFrame#cardAnnotateImages,
+QFrame#cardAnnotateCanvas,
+QFrame#cardAnnotateInfo,
+QFrame#cardTrainConfig,
+QFrame#cardTrainLog,
+QFrame#cardQuant,
+QFrame#cardInfer,
+QFrame#cardInferResult {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+}
+QLabel[role=&quot;cardTitle&quot;] {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+}
+QLabel[role=&quot;hint&quot;] {
+    color: #64748b;
+    font-size: 12px;
+}
+QLineEdit, QSpinBox, QDoubleSpinBox, QComboBox {
+    min-height: 34px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    padding: 4px 9px;
+}
+QLineEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus, QComboBox:focus {
+    border: 1px solid #2563eb;
+    background: white;
+}
+QPushButton {
+    min-height: 34px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 6px 14px;
+    font-weight: 600;
+}
+QPushButton:hover {
+    background: #1d4ed8;
+}
+QPushButton:pressed {
+    background: #1e3a8a;
+}
+QPushButton#btnStopTrain,
+QPushButton#btnStopQuant,
+QPushButton#btnDeleteLabel,
+QPushButton#btnDeleteClass,
+QPushButton#btnClearAnnotation {
+    background: #ef4444;
+}
+QPushButton#btnStopTrain:hover,
+QPushButton#btnStopQuant:hover,
+QPushButton#btnDeleteLabel:hover,
+QPushButton#btnDeleteClass:hover,
+QPushButton#btnClearAnnotation:hover {
+    background: #dc2626;
+}
+QPushButton#btnSelectDataset,
+QPushButton#btnSelectPythonExe,
+QPushButton#btnSelectScript,
+QPushButton#btnOpenImageDir,
+QPushButton#btnSelectModelPath,
+QPushButton#btnSelectCalibDir,
+QPushButton#btnSelectOutputPath,
+QPushButton#btnSelectInferPtModelPath,
+QPushButton#btnSelectInferOnnxModelPath,
+QPushButton#btnSelectInferImage {
+    background: #475569;
+}
+QPushButton#btnSelectDataset:hover,
+QPushButton#btnSelectPythonExe:hover,
+QPushButton#btnSelectScript:hover,
+QPushButton#btnOpenImageDir:hover,
+QPushButton#btnSelectModelPath:hover,
+QPushButton#btnSelectCalibDir:hover,
+QPushButton#btnSelectOutputPath:hover,
+QPushButton#btnSelectInferPtModelPath:hover,
+QPushButton#btnSelectInferOnnxModelPath:hover,
+QPushButton#btnSelectInferImage:hover {
+    background: #334155;
+}
+QListWidget, QPlainTextEdit, QTextEdit, QTableWidget {
+    background: #f8fafc;
+    border: 1px solid #dbe4f0;
+    border-radius: 12px;
+    padding: 6px;
+    selection-background-color: #bfdbfe;
+    selection-color: #0f172a;
+}
+
+QGroupBox#groupBoxTrainResult {
+    background: #ffffff;
+    border: 1px solid #dbeafe;
+    border-radius: 14px;
+    margin-top: 14px;
+    padding: 12px;
+    font-weight: 700;
+    color: #1d4ed8;
+}
+QGroupBox#groupBoxTrainResult::title {
+    subcontrol-origin: margin;
+    left: 12px;
+    padding: 0 8px;
+    background: white;
+}
+QTableWidget#tableWidgetTrainMetrics {
+    background: #ffffff;
+    gridline-color: #dbeafe;
+    border: 1px solid #bfdbfe;
+    border-radius: 10px;
+}
+QTextEdit#plainTextEditMetricChart {
+    background: #0f172a;
+    color: #e5e7eb;
+    border: 1px solid #1e3a8a;
+    border-radius: 10px;
+    padding: 8px;
+}
+
+QHeaderView::section {
+    background: #e2e8f0;
+    color: #334155;
+    border: none;
+    padding: 8px;
+    font-weight: 700;
+}
+QProgressBar {
+    height: 18px;
+    background: #e2e8f0;
+    border-radius: 9px;
+    text-align: center;
+    color: #0f172a;
+}
+QProgressBar::chunk {
+    border-radius: 9px;
+    background: #22c55e;
+}
+QLabel#labelImage {
+    background: #0f172a;
+    color: #94a3b8;
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+}
+ImageCanvas#canvasWidget {
+    background: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 14px;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="mainLayout">
+    <property name="spacing">
+     <number>14</number>
+    </property>
+    <property name="leftMargin">
+     <number>18</number>
+    </property>
+    <property name="topMargin">
+     <number>18</number>
+    </property>
+    <property name="rightMargin">
+     <number>18</number>
+    </property>
+    <property name="bottomMargin">
+     <number>12</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="headerFrame">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>92</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>96</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <layout class="QHBoxLayout" name="headerLayout">
+       <property name="leftMargin">
+        <number>24</number>
+       </property>
+       <property name="topMargin">
+        <number>16</number>
+       </property>
+       <property name="rightMargin">
+        <number>24</number>
+       </property>
+       <property name="bottomMargin">
+        <number>16</number>
+       </property>
+       <item>
+        <layout class="QVBoxLayout" name="titleLayout">
+         <property name="spacing">
+          <number>6</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="labelTitle">
+           <property name="text">
+            <string>模型训练 · INT8量化 · C++推理平台</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelSubTitle">
+           <property name="text">
+            <string>支持数据标注、YOLO训练、Python量化进度显示、ONNX Runtime量化模型推理与结果展示</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="horizontalSpacerHeader">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidgetMain">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="tabAnnotate">
+       <attribute name="title">
+        <string>数据标注</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="annotateLayout">
+        <property name="spacing">
+         <number>14</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>12</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QFrame" name="cardAnnotateImages">
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>300</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <layout class="QVBoxLayout" name="annotateImagesLayout">
+           <property name="leftMargin">
+            <number>16</number>
+           </property>
+           <property name="topMargin">
+            <number>16</number>
+           </property>
+           <property name="rightMargin">
+            <number>16</number>
+           </property>
+           <property name="bottomMargin">
+            <number>16</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelImageListTitle">
+             <property name="text">
+              <string>图片列表</string>
+             </property>
+             <property name="role" stdset="0">
+              <string>cardTitle</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEditImageDir">
+             <property name="placeholderText">
+              <string>选择图片文件夹</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnOpenImageDir">
+             <property name="text">
+              <string>打开图片文件夹</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="imageListWidget"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="cardAnnotateCanvas">
+          <layout class="QVBoxLayout" name="annotateCanvasLayout">
+           <property name="leftMargin">
+            <number>16</number>
+           </property>
+           <property name="topMargin">
+            <number>16</number>
+           </property>
+           <property name="rightMargin">
+            <number>16</number>
+           </property>
+           <property name="bottomMargin">
+            <number>16</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelCanvasTitle">
+             <property name="text">
+              <string>图像标注画布</string>
+             </property>
+             <property name="role" stdset="0">
+              <string>cardTitle</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="ImageCanvas" name="canvasWidget" native="true">
+             <property name="minimumSize">
+              <size>
+               <width>520</width>
+               <height>480</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="cardAnnotateInfo">
+          <property name="minimumSize">
+           <size>
+            <width>260</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>320</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <layout class="QVBoxLayout" name="annotateInfoLayout">
+           <property name="leftMargin">
+            <number>16</number>
+           </property>
+           <property name="topMargin">
+            <number>16</number>
+           </property>
+           <property name="rightMargin">
+            <number>16</number>
+           </property>
+           <property name="bottomMargin">
+            <number>16</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelAnnotationTitle">
+             <property name="text">
+              <string>标注信息</string>
+             </property>
+             <property name="role" stdset="0">
+              <string>cardTitle</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBoxClass">
+             <item>
+              <property name="text">
+               <string>person</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>vehicle</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>object</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="annotationListWidget"/>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="annotationButtonLayout1">
+             <item>
+              <widget class="QPushButton" name="btnAddLabel">
+               <property name="text">
+                <string>新增类别</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnDeleteClass">
+               <property name="text">
+                <string>删除类别</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="annotationButtonLayout2">
+             <item>
+              <widget class="QPushButton" name="btnDeleteLabel">
+               <property name="text">
+                <string>删除框</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnChangeAnnotationClass">
+               <property name="text">
+                <string>更改类别</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="annotationButtonLayout3">
+             <item>
+              <widget class="QPushButton" name="btnUndoAnnotation">
+               <property name="text">
+                <string>撤销</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnRedoAnnotation">
+               <property name="text">
+                <string>重做</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="annotationButtonLayout4">
+             <item>
+              <widget class="QPushButton" name="btnSaveAnnotation">
+               <property name="text">
+                <string>保存标注</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnClearAnnotation">
+               <property name="text">
+                <string>清空</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabTrain">
+       <attribute name="title">
+        <string>模型训练</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="trainPageLayout">
+        <property name="spacing">
+         <number>14</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>12</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QFrame" name="cardTrainConfig">
+          <property name="maximumSize">
+           <size>
+            <width>460</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <layout class="QVBoxLayout" name="trainConfigLayout">
+           <property name="spacing">
+            <number>12</number>
+           </property>
+           <property name="leftMargin">
+            <number>18</number>
+           </property>
+           <property name="topMargin">
+            <number>18</number>
+           </property>
+           <property name="rightMargin">
+            <number>18</number>
+           </property>
+           <property name="bottomMargin">
+            <number>18</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelTrainConfigTitle">
+             <property name="text">
+              <string>训练参数配置</string>
+             </property>
+             <property name="role" stdset="0">
+              <string>cardTitle</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QGridLayout" name="trainGridLayout">
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelDataset">
+               <property name="text">
+                <string>数据集</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="lineEditDataset">
+               <property name="text">
+                <string>E:/QT-study/untitled2/dataset/data.yaml</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QPushButton" name="btnSelectDataset">
+               <property name="text">
+                <string>选择</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="labelPythonExe">
+               <property name="text">
+                <string>Python</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="lineEditPythonExe">
+               <property name="text">
+                <string>E:/anaconda/envs/python3.9/python.exe</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QPushButton" name="btnSelectPythonExe">
+               <property name="text">
+                <string>选择</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="labelScript">
+               <property name="text">
+                <string>训练脚本</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="lineEditScript">
+               <property name="text">
+                <string>E:/QT-study/untitled2/python/train.py</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QPushButton" name="btnSelectScript">
+               <property name="text">
+                <string>选择</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="labelModel">
+               <property name="text">
+                <string>模型</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1" colspan="2">
+              <widget class="QComboBox" name="comboBoxModel">
+               <item>
+                <property name="text">
+                 <string>yolov8s.pt</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>yolov8n.pt</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>yolov8m.pt</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="labelEpoch">
+               <property name="text">
+                <string>Epoch</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1" colspan="2">
+              <widget class="QSpinBox" name="spinBoxEpoch">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>500</number>
+               </property>
+               <property name="value">
+                <number>8</number>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="labelBatch">
+               <property name="text">
+                <string>Batch</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1" colspan="2">
+              <widget class="QSpinBox" name="spinBoxBatch">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>256</number>
+               </property>
+               <property name="value">
+                <number>10</number>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0">
+              <widget class="QLabel" name="labelLr">
+               <property name="text">
+                <string>学习率</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1" colspan="2">
+              <widget class="QDoubleSpinBox" name="doubleSpinBoxLr">
+               <property name="decimals">
+                <number>6</number>
+               </property>
+               <property name="minimum">
+                <double>0.000001000000000</double>
+               </property>
+               <property name="maximum">
+                <double>1.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.000100000000000</double>
+               </property>
+               <property name="value">
+                <double>0.001000000000000</double>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QProgressBar" name="progressBarTrain">
+             <property name="value">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelTrainStatus">
+             <property name="text">
+              <string>状态：未开始</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="trainButtonLayout">
+             <item>
+              <widget class="QPushButton" name="btnStartTrain">
+               <property name="text">
+                <string>开始训练</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnStopTrain">
+               <property name="text">
+                <string>停止训练</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacerTrainConfig">
+             <property name="orientation">
+              <enum>Qt::Orientation::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="cardTrainLog">
+          <layout class="QVBoxLayout" name="trainLogLayout">
+           <property name="leftMargin">
+            <number>18</number>
+           </property>
+           <property name="topMargin">
+            <number>18</number>
+           </property>
+           <property name="rightMargin">
+            <number>18</number>
+           </property>
+           <property name="bottomMargin">
+            <number>18</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelTrainLogTitle">
+             <property name="text">
+              <string>训练日志</string>
+             </property>
+             <property name="role" stdset="0">
+              <string>cardTitle</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBoxTrainResult">
+             <property name="title">
+              <string>训练结果与性能指标</string>
+             </property>
+             <layout class="QVBoxLayout" name="trainResultLayout">
+              <property name="spacing">
+               <number>8</number>
+              </property>
+              <item>
+               <widget class="QTableWidget" name="tableWidgetTrainMetrics">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>160</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>210</height>
+                 </size>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+                </property>
+                <property name="alternatingRowColors">
+                 <bool>true</bool>
+                </property>
+                <property name="rowCount">
+                 <number>8</number>
+                </property>
+                <property name="columnCount">
+                 <number>2</number>
+                </property>
+                <attribute name="horizontalHeaderVisible">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
+                <row/>
+                <row/>
+                <row/>
+                <row/>
+                <row/>
+                <row/>
+                <row/>
+                <row/>
+                <column>
+                 <property name="text">
+                  <string>项目</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>结果</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+              <item>
+               <widget class="QWidget" name="widgetMetricBars" native="true">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>135</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">#widgetMetricBars {
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+}
+#labelMetricChartTitle {
+    color: #1e3a8a;
+    font-weight: 700;
+}
+QLabel[metricName="true"] {
+    color: #0f172a;
+    font-weight: 600;
+}
+QLabel[metricValue="true"] {
+    color: #64748b;
+    font-weight: 600;
+}</string>
+                </property>
+                <layout class="QGridLayout" name="gridLayoutMetricBars">
+                 <property name="leftMargin">
+                  <number>14</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>10</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>14</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>10</number>
+                 </property>
+                 <property name="horizontalSpacing">
+                  <number>10</number>
+                 </property>
+                 <property name="verticalSpacing">
+                  <number>7</number>
+                 </property>
+                 <item row="0" column="0" colspan="3">
+                  <widget class="QLabel" name="labelMetricChartTitle">
+                   <property name="text">
+                    <string>训练后性能指标可视化</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="labelMetricPrecisionName">
+                   <property name="text">
+                    <string>Precision</string>
+                   </property>
+                   <property name="metricName" stdset="0">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QProgressBar" name="progressBarMetricPrecision">
+                   <property name="minimum">
+                    <number>0</number>
+                   </property>
+                   <property name="maximum">
+                    <number>100</number>
+                   </property>
+                   <property name="value">
+                    <number>0</number>
+                   </property>
+                   <property name="textVisible">
+                    <bool>true</bool>
+                   </property>
+                   <property name="format">
+                    <string>未获取</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="2">
+                  <widget class="QLabel" name="labelMetricPrecisionValue">
+                   <property name="minimumSize">
+                    <size>
+                     <width>50</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>未获取</string>
+                   </property>
+                   <property name="metricValue" stdset="0">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="labelMetricRecallName">
+                   <property name="text">
+                    <string>Recall</string>
+                   </property>
+                   <property name="metricName" stdset="0">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QProgressBar" name="progressBarMetricRecall">
+                   <property name="minimum">
+                    <number>0</number>
+                   </property>
+                   <property name="maximum">
+                    <number>100</number>
+                   </property>
+                   <property name="value">
+                    <number>0</number>
+                   </property>
+                   <property name="textVisible">
+                    <bool>true</bool>
+                   </property>
+                   <property name="format">
+                    <string>未获取</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="2">
+                  <widget class="QLabel" name="labelMetricRecallValue">
+                   <property name="minimumSize">
+                    <size>
+                     <width>50</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>未获取</string>
+                   </property>
+                   <property name="metricValue" stdset="0">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QLabel" name="labelMetricMap50Name">
+                   <property name="text">
+                    <string>mAP50</string>
+                   </property>
+                   <property name="metricName" stdset="0">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1">
+                  <widget class="QProgressBar" name="progressBarMetricMap50">
+                   <property name="minimum">
+                    <number>0</number>
+                   </property>
+                   <property name="maximum">
+                    <number>100</number>
+                   </property>
+                   <property name="value">
+                    <number>0</number>
+                   </property>
+                   <property name="textVisible">
+                    <bool>true</bool>
+                   </property>
+                   <property name="format">
+                    <string>未获取</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="2">
+                  <widget class="QLabel" name="labelMetricMap50Value">
+                   <property name="minimumSize">
+                    <size>
+                     <width>50</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>未获取</string>
+                   </property>
+                   <property name="metricValue" stdset="0">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="0">
+                  <widget class="QLabel" name="labelMetricMap5095Name">
+                   <property name="text">
+                    <string>mAP50-95</string>
+                   </property>
+                   <property name="metricName" stdset="0">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="1">
+                  <widget class="QProgressBar" name="progressBarMetricMap5095">
+                   <property name="minimum">
+                    <number>0</number>
+                   </property>
+                   <property name="maximum">
+                    <number>100</number>
+                   </property>
+                   <property name="value">
+                    <number>0</number>
+                   </property>
+                   <property name="textVisible">
+                    <bool>true</bool>
+                   </property>
+                   <property name="format">
+                    <string>未获取</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="2">
+                  <widget class="QLabel" name="labelMetricMap5095Value">
+                   <property name="minimumSize">
+                    <size>
+                     <width>50</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>未获取</string>
+                   </property>
+                   <property name="metricValue" stdset="0">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelTrainRuntimeLogTitle">
+             <property name="text">
+              <string>训练过程日志</string>
+             </property>
+             <property name="role" stdset="0">
+              <string>cardTitle</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPlainTextEdit" name="plainTextEditLog">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="placeholderText">
+              <string>训练过程日志会显示在这里...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabQuantInfer">
+       <attribute name="title">
+        <string>量化推理</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="quantInferPageLayout">
+        <property name="spacing">
+         <number>14</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>12</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QFrame" name="cardQuant">
+          <property name="minimumSize">
+           <size>
+            <width>430</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>480</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <layout class="QVBoxLayout" name="quantLayout">
+           <property name="spacing">
+            <number>10</number>
+           </property>
+           <property name="leftMargin">
+            <number>18</number>
+           </property>
+           <property name="topMargin">
+            <number>18</number>
+           </property>
+           <property name="rightMargin">
+            <number>18</number>
+           </property>
+           <property name="bottomMargin">
+            <number>18</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelQuantTitle">
+             <property name="text">
+              <string>模型量化参数</string>
+             </property>
+             <property name="role" stdset="0">
+              <string>cardTitle</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelQuantHint">
+             <property name="text">
+              <string>Qt调用Python量化脚本，并实时显示量化进度</string>
+             </property>
+             <property name="role" stdset="0">
+              <string>hint</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QGridLayout" name="quantGridLayout">
+             <property name="leftMargin">
+              <number>16</number>
+             </property>
+             <property name="topMargin">
+              <number>16</number>
+             </property>
+             <property name="rightMargin">
+              <number>16</number>
+             </property>
+             <property name="bottomMargin">
+              <number>16</number>
+             </property>
+             <property name="horizontalSpacing">
+              <number>10</number>
+             </property>
+             <property name="verticalSpacing">
+              <number>9</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelModelPath">
+               <property name="text">
+                <string>原始模型</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1" colspan="2">
+              <widget class="QSpinBox" name="spinBoxImgSize">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="minimum">
+                <number>224</number>
+               </property>
+               <property name="maximum">
+                <number>1280</number>
+               </property>
+               <property name="singleStep">
+                <number>32</number>
+               </property>
+               <property name="value">
+                <number>640</number>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1" colspan="2">
+              <widget class="QCheckBox" name="checkBoxPerChannel">
+               <property name="text">
+                <string>启用 per-channel 权重量化</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="labelOutputPath">
+               <property name="text">
+                <string>输出模型</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QPushButton" name="btnSelectOutputPath">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>46</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>保存</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="labelImgSize">
+               <property name="text">
+                <string>输入尺寸</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="labelCalibDir">
+               <property name="text">
+                <string>校准数据</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="lineEditOutputPath">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="placeholderText">
+                <string>best_int8.onnx</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QPushButton" name="btnSelectModelPath">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>46</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>选择</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="lineEditCalibDir">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="placeholderText">
+                <string>calib_images 文件夹</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QPushButton" name="btnSelectCalibDir">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>46</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>选择</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="labelQuantMode">
+               <property name="text">
+                <string>量化方式</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="labelMaxCalib">
+               <property name="text">
+                <string>校准数量</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1" colspan="2">
+              <widget class="QComboBox" name="comboBoxQuantMode">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <item>
+                <property name="text">
+                 <string>static</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>dynamic</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="lineEditModelPath">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="placeholderText">
+                <string>best.onnx</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1" colspan="2">
+              <widget class="QSpinBox" name="spinBoxMaxCalib">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>10000</number>
+               </property>
+               <property name="value">
+                <number>100</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QProgressBar" name="progressBarQuant">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="value">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="quantButtonLayout">
+             <item>
+              <widget class="QPushButton" name="btnStartQuant">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>46</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>开始量化</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnStopQuant">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>46</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>停止量化</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="textEditQuantLog">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>120</height>
+              </size>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="placeholderText">
+              <string>量化进度信息会显示在这里...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="inferRightLayout">
+          <property name="spacing">
+           <number>14</number>
+          </property>
+          <item>
+           <widget class="QFrame" name="cardInfer">
+            <layout class="QVBoxLayout" name="inferConfigLayout">
+             <property name="leftMargin">
+              <number>18</number>
+             </property>
+             <property name="topMargin">
+              <number>18</number>
+             </property>
+             <property name="rightMargin">
+              <number>18</number>
+             </property>
+             <property name="bottomMargin">
+              <number>18</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="labelInferTitle">
+               <property name="text">
+                <string>PT模型推理 / ONNX模型推理</string>
+               </property>
+               <property name="role" stdset="0">
+                <string>cardTitle</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QGridLayout" name="inferGridLayout">
+               <property name="spacing">
+                <number>10</number>
+               </property>
+               <item row="0" column="0">
+                <widget class="QLabel" name="labelInferPtModelPath">
+                 <property name="text">
+                  <string>PT模型</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="lineEditInferPtModelPath">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>44</height>
+                  </size>
+                 </property>
+                 <property name="placeholderText">
+                  <string>选择 best.pt</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="btnSelectInferPtModelPath">
+                 <property name="text">
+                  <string>选择PT模型</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QPushButton" name="btnLoadInferPtModel">
+                 <property name="text">
+                  <string>加载PT模型</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="labelInferOnnxModelPath">
+                 <property name="text">
+                  <string>ONNX模型</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="lineEditInferOnnxModelPath">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>44</height>
+                  </size>
+                 </property>
+                 <property name="placeholderText">
+                  <string>选择 best.onnx 或 best_int8.onnx</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QPushButton" name="btnSelectInferOnnxModelPath">
+                 <property name="text">
+                  <string>选择ONNX模型</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QPushButton" name="btnLoadInferOnnxModel">
+                 <property name="text">
+                  <string>加载ONNX模型</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="labelInferImagePath">
+                 <property name="text">
+                  <string>测试图片</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="lineEditInferImagePath">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>44</height>
+                  </size>
+                 </property>
+                 <property name="placeholderText">
+                  <string>选择需要推理的图片</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="2">
+                <widget class="QPushButton" name="btnSelectInferImage">
+                 <property name="text">
+                  <string>选择图片</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="3">
+                <widget class="QPushButton" name="btnStartInfer">
+                 <property name="text">
+                  <string>开始推理</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelInferStatus">
+               <property name="text">
+                <string>推理状态：未加载模型</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="cardInferResult">
+            <layout class="QHBoxLayout" name="inferResultLayout">
+             <property name="spacing">
+              <number>14</number>
+             </property>
+             <property name="leftMargin">
+              <number>18</number>
+             </property>
+             <property name="topMargin">
+              <number>18</number>
+             </property>
+             <property name="rightMargin">
+              <number>18</number>
+             </property>
+             <property name="bottomMargin">
+              <number>18</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="labelImage">
+               <property name="minimumSize">
+                <size>
+                 <width>560</width>
+                 <height>420</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>推理图像显示区（选择图片后显示原图，推理后显示结果图）</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTableWidget" name="tableWidgetResult">
+               <property name="minimumSize">
+                <size>
+                 <width>300</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="columnCount">
+                <number>7</number>
+               </property>
+               <column>
+                <property name="text">
+                 <string>序号</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>类别</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>置信度</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>x</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>y</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>w</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>h</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ImageCanvas</class>
+   <extends>QWidget</extends>
+   <header>imagecanvas.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,7 @@
+path: E:/QT-study/untitled2/data
+train: images/train
+val: images/val
+nc: 2
+names:
+  0: focused
+  1: unfocused
